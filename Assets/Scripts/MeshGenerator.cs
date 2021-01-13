@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Plarium.VGO
 {
     public abstract class MeshGenerator : MonoBehaviour
     {
