@@ -3,9 +3,11 @@ using UnityEngine;
 
 namespace Plarium.VGO
 {
-    public class MultipleMeshesGenerator : MeshGenerator
+    public class ManyLittleMeshesGenerator : MeshGeneratorBase
     {
         private List<GameObject> _meshHolders = new List<GameObject>();
+
+        private int _vertexCount;
 
         public override void Generate(int vertexCount)
         {
@@ -36,6 +38,8 @@ namespace Plarium.VGO
                     mf.sharedMesh = mesh;
                 }
             }
+
+            _vertexCount = objectsCount * mesh.vertexCount;
         }
 
         public override void Clear()
@@ -46,6 +50,11 @@ namespace Plarium.VGO
             }
 
             _meshHolders.Clear();
+        }
+
+        public override int GetVertexCount()
+        {
+            return _vertexCount;
         }
 
         private Mesh GetSimpleMesh()
@@ -70,14 +79,16 @@ namespace Plarium.VGO
                 2, 4, 3,
                 2, 3, 0*/
             };
-            mesh.SetUVs(0, new Vector2[]
+            var uv = new Vector2[]
             {
                 new Vector2(0, 0),
                 new Vector2(0, 1),
                 //new Vector2(0.5f, 0.5f), 
                 new Vector2(1, 0),
                 new Vector2(1, 1)
-            });
+            };
+            mesh.SetUVs(0, uv);
+            mesh.SetUVs(1, uv);
 
             return mesh;
         }

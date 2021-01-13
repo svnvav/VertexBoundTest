@@ -9,8 +9,9 @@ namespace Plarium.VGO
     {
         [SerializeField] private InputField _vertexCountInput;
         [SerializeField] private ToggleGroup _toggleGroup;
+        [SerializeField] private Text _vertexCountText;
 
-        private MeshGenerator _last;
+        private MeshGeneratorBase _last;
 
         public void Generate()
         {
@@ -28,8 +29,9 @@ namespace Plarium.VGO
 
             if (_last != null) _last.Clear();
 
-            _last = _toggleGroup.ActiveToggles().First().GetComponent<MeshGenerator>();
+            _last = _toggleGroup.ActiveToggles().First().GetComponent<MeshGeneratorBase>();
             _last.Generate(vertexCount);
+            _vertexCountText.text = $"Vertices: {_last.GetVertexCount()}";
         }
     }
 }

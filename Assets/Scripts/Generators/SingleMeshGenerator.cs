@@ -4,9 +4,10 @@ using UnityEngine.Rendering;
 
 namespace Plarium.VGO
 {
-    public class SingleMeshGenerator : MeshGenerator
+    public class SingleMeshGenerator : MeshGeneratorBase
     {
         private GameObject _meshHolder;
+        private int _vertexCount;
 
         public override void Clear()
         {
@@ -65,10 +66,18 @@ namespace Plarium.VGO
             mesh.triangles = trianglesList.ToArray();
             mesh.RecalculateNormals();
             mesh.SetUVs(0, uv);
+            mesh.SetUVs(1, uv);
 
             _meshHolder = Instantiate(_meshHolderPrefab);
             var mf = _meshHolder.GetComponent<MeshFilter>();
             mf.sharedMesh = mesh;
+
+            _vertexCount = mesh.vertexCount;
+        }
+        
+        public override int GetVertexCount()
+        {
+            return _vertexCount;
         }
     }
 }
